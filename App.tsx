@@ -1,9 +1,16 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components/native';
 import { StatusBar } from 'react-native';
 
+import { ThemeProvider } from 'styled-components/native';
+import { SafeAreaProvider, Metrics } from 'react-native-safe-area-context';
+
 import { theme } from './src/theme';
-import { Navigation } from './src/navigation';
+import { StaticStack } from './src/screens';
+
+const initialMetrics: Metrics = {
+  insets: { top: 0, left: 0, right: 0, bottom: 0 },
+  frame: { x: 0, y: 0, width: 0, height: 0 },
+};
 
 function App() {
   return (
@@ -13,7 +20,9 @@ function App() {
         backgroundColor={theme.colors.primary}
       />
       <ThemeProvider theme={theme}>
-        <Navigation />
+        <SafeAreaProvider initialMetrics={initialMetrics}>
+          <StaticStack />
+        </SafeAreaProvider>
       </ThemeProvider>
     </>
   );

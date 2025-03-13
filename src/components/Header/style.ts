@@ -6,12 +6,11 @@ export const MainContainer = styled(View).attrs({
   justifyContent: 'center',
   alignItems: 'center',
   height: 60,
-  px: 24,
-  bg: 'primary',
+  px: 'space-24',
 })``;
 
 export const Title = styled(Text).attrs({
-  color: 'text-light',
-  fontSize: 24,
+  color: 'app-black',
+  fontSize: 'font-24',
   fontWeight: 'bold',
 })``;
