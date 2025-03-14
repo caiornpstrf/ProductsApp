@@ -9,12 +9,12 @@ import {
 
 export async function byCategory({
   slug,
-  page,
+  ...rest
 }: ListProducyByCategoryPayload): Promise<ListProductsResult> {
   try {
     const response = await new Request<ListProductsResponse>(
       `products/category/${slug}`,
-      config({ page }),
+      config(rest),
     ).send();
 
     return [undefined, response];

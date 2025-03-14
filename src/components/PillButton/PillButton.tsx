@@ -5,7 +5,7 @@ import { ButtonContainer, ButtonText } from './style';
 
 export type PillButtonProps = {
   testID?: string;
-  label?: string;
+  label?: string | React.ReactNode;
   disabled?: boolean;
   active?: boolean;
   onPress?(): void;

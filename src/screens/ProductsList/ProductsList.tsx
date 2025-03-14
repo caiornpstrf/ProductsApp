@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ContentContainer,
   ListEndContainer,
@@ -11,10 +11,11 @@ import { useStringHandler } from '../../locale';
 import { Category, Product } from '../../service';
 import { ActivityIndicator, FlatList, ListRenderItem } from 'react-native';
 import { useProductsList } from './useProductsList';
-import { CategoryCarousel, ProductListItem } from './components';
+import { CategoryCarousel, ProductListItem, SortModal } from './components';
 
 export function ProductsList() {
   const { text } = useStringHandler('productsList');
+  const [sortModalVisible, setSortModalVisible] = useState(false);
 
   const {
     isLoading,
@@ -24,6 +25,7 @@ export function ProductsList() {
     goToProductDetails,
     onChangeCategory,
     onListEndReached,
+    onSort,
   } = useProductsList();
 
   const defaultCategory: Category = {
@@ -55,7 +57,13 @@ export function ProductsList() {
 
   return (
     <MainContainer>
-      <Header title={text('title')} />
+      <Header
+        title={text('title')}
+        rightIcon={{
+          name: 'sort',
+          onPress: () => setSortModalVisible(true),
+        }}
+      />
       <ContentContainer>
         <CategoryCarousel
           data={[defaultCategory, ...categories]}
@@ -86,6 +94,14 @@ export function ProductsList() {
           }
         />
       </ContentContainer>
+      <SortModal
+        isVisible={sortModalVisible}
+        onClose={() => setSortModalVisible(false)}
+        onPressSort={item => {
+          setSortModalVisible(false);
+          onSort(item);
+        }}
+      />
     </MainContainer>
   );
 }

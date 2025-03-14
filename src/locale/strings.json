@@ -1,8 +1,18 @@
 {
   "productsList": {
-    "title": "Products"
+    "title": "Products",
+    "sortLabel": "Close and sort",
+    "sort": {
+      "default": "Default order",
+      "price": "Price",
+      "rating": "Rating",
+      "asc": "Ascending",
+      "desc": "Descending"
+    }
   },
   "productDetails": {
-    "title": "Details"
+    "title": "Details",
+    "inStock": "In stock: ##{{ stock }}##",
+    "brand": "Brand:\n##{{ brand }}##"
   }
 }

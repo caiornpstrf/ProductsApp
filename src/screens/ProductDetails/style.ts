@@ -1,7 +1,7 @@
 import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
 import { SafeAreaView, Text, View } from '../../components';
-import { color, layout, space } from 'styled-system';
+import { flex, space } from 'styled-system';
 
 export const MainContainer = styled(SafeAreaView).attrs({
   edges: ['top', 'bottom'],
@@ -22,6 +22,19 @@ export const ImageContainer = styled(View).attrs({
   height: 300,
   alignItems: 'center',
   justifyContent: 'center',
+})``;
+
+export const InfoContainer = styled(View).attrs({
+  flex: 1,
+  flexDirection: 'row',
+  alignItems: 'center',
+  py: 'space-16',
+})``;
+
+export const VerticalSpacer = styled(View).attrs({
+  width: '1px',
+  height: '32px',
+  bg: 'app-lightgray',
 })``;
 
 export const Image = styled.Image.attrs({
@@ -45,7 +58,7 @@ export const ImageList = styled(FlatList).attrs({
 export const Title = styled(Text).attrs({
   fontSize: 'font-20',
   fontWeight: 'bold',
-  mt: 'space-24',
+  mt: 'space-4',
 })`
   ${space}
 `;
@@ -64,4 +77,13 @@ export const Description = styled(Text).attrs({
   mt: 'space-16',
 })`
   ${space}
+`;
+
+export const Info = styled(Text).attrs({
+  fontSize: 'font-10',
+  color: 'app-darkgray',
+  flex: 1,
+  textAlign: 'center',
+})`
+  ${flex}
 `;

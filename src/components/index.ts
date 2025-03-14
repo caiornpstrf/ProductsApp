@@ -5,3 +5,5 @@ export * from './SafeAreaView';
 export * from './Text';
 export * from './View';
 export * from './PillButton';
+export * from './Modal';
+export * from './RadioButton';

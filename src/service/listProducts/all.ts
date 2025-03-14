@@ -7,13 +7,13 @@ import {
   ListProductsPayload,
 } from './types';
 
-export async function all({
-  page,
-}: ListProductsPayload): Promise<ListProductsResult> {
+export async function all(
+  payload: ListProductsPayload,
+): Promise<ListProductsResult> {
   try {
     const response = await new Request<ListProductsResponse>(
       'products',
-      config({ page }),
+      config(payload),
     ).send();
 
     return [undefined, response];

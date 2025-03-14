@@ -1,14 +1,24 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import { Category, ListProducts, getCategories, Product } from '../../service';
+import {
+  Category,
+  ListProducts,
+  getCategories,
+  Product,
+  SortType,
+  SortOrder,
+} from '../../service';
 import { Screens } from '../../navigation';
+import { SortItem } from './components';
 
 type ProductsState = {
   category: Category;
   products: Product[];
   hasMorePages: boolean;
   nextPage: number;
+  sort: SortType;
+  order: SortOrder;
 };
 
 const initialProductsState: ProductsState = {
@@ -20,6 +30,8 @@ const initialProductsState: ProductsState = {
   products: [],
   hasMorePages: true,
   nextPage: 0,
+  sort: SortType.Default,
+  order: SortOrder.None,
 };
 
 export function useProductsList() {
@@ -52,13 +64,15 @@ export function useProductsList() {
     }
     setIsProductsLoading(true);
 
-    const { category, products, nextPage: page } = productsState;
+    const { category, products, nextPage: page, sort, order } = productsState;
     const [error, response] = category.slug
       ? await ListProducts.byCategory({
           slug: category.slug,
           page,
+          sort,
+          order,
         })
-      : await ListProducts.all({ page });
+      : await ListProducts.all({ page, sort, order });
 
     if (error) {
       // Handle error
@@ -71,6 +85,8 @@ export function useProductsList() {
       products: nextProducts,
       hasMorePages: nextProducts.length < response.total,
       nextPage: page + 1,
+      sort,
+      order,
     });
     setIsProductsLoading(false);
   };
@@ -101,6 +117,17 @@ export function useProductsList() {
     });
   };
 
+  const onSort = (sortItem: SortItem) => {
+    const { type, order } = sortItem;
+
+    setProductsState({
+      ...initialProductsState,
+      category: productsState.category,
+      sort: type,
+      order,
+    });
+  };
+
   useEffect(() => {
     init();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -109,7 +136,7 @@ export function useProductsList() {
   useEffect(() => {
     fetchProducts();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productsState.category]);
+  }, [productsState.category, productsState.sort, productsState.order]);
 
   return {
     isLoading,
@@ -119,5 +146,6 @@ export function useProductsList() {
     goToProductDetails,
     onChangeCategory,
     onListEndReached: () => fetchProducts(),
+    onSort,
   };
 }

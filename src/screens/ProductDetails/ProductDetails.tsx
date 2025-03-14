@@ -17,6 +17,9 @@ import {
   ContentContainer,
   Description,
   ScrollContainer,
+  InfoContainer,
+  Info,
+  VerticalSpacer,
 } from './style';
 
 type ProductDetailsRoute = StaticScreenProps<{
@@ -24,7 +27,7 @@ type ProductDetailsRoute = StaticScreenProps<{
 }>;
 
 export function ProductDetails({ route }: ProductDetailsRoute) {
-  const { text } = useStringHandler('productDetails');
+  const { text, bold } = useStringHandler('productDetails');
 
   const { id } = route.params;
   const { isLoading, product, goBack } = useProductDetails(id);
@@ -58,6 +61,11 @@ export function ProductDetails({ route }: ProductDetailsRoute) {
         </View>
         <Spacer />
         <ContentContainer>
+          <InfoContainer>
+            <Info>{bold(text('inStock', { stock: product.stock }))}</Info>
+            <VerticalSpacer />
+            <Info>{bold(text('brand', { brand: product.brand }))}</Info>
+          </InfoContainer>
           <Title>{product.title}</Title>
           <PriceTag>{Currency.format(product.price)}</PriceTag>
           <Description>{product.description}</Description>

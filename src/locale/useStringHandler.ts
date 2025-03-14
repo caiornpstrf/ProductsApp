@@ -1,6 +1,7 @@
 import get from 'lodash/get';
 
 import globalStrings from './strings.json';
+import { getBoldText } from './getBoldText';
 
 type Key = string;
 type Params = Record<string, string | number> | null | undefined;
@@ -37,7 +38,11 @@ export function useStringHandler(featureName?: string) {
     return stringWithParams;
   };
 
-  const getFromJson = (key: Key, params?: Params, fallbackKey?: Key): string => {
+  const getFromJson = (
+    key: Key,
+    params?: Params,
+    fallbackKey?: Key,
+  ): string => {
     const rawString = get(featureSpecificStrings, key);
     const stringWithParams = params
       ? replaceParams(rawString, params)
@@ -51,5 +56,6 @@ export function useStringHandler(featureName?: string) {
 
   return {
     text: getFromJson,
+    bold: getBoldText,
   };
 }

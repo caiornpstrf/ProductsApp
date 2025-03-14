@@ -11,7 +11,7 @@ import {
 } from './style';
 
 export type HeaderProps = {
-  title: string;
+  title: string | React.ReactNode;
   onPressBack?(): void;
   rightIcon?: {
     name: string;

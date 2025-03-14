@@ -3,7 +3,7 @@ import { ButtonContainer, ButtonText, Pressable } from './style';
 
 export type ButtonProps = {
   testID?: string;
-  label?: string;
+  label?: string | React.ReactNode;
   disabled?: boolean;
   onPress?(): void;
 };
