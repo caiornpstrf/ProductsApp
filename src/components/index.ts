@@ -8,3 +8,4 @@ export * from './PillButton';
 export * from './Modal';
 export * from './RadioButton';
 export * from './Image';
+export * from './ErrorDisplay';

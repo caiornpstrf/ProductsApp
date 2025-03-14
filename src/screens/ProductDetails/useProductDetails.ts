@@ -8,13 +8,16 @@ export function useProductDetails(id: number) {
 
   const [product, setProduct] = useState<GetProductDetailsResponse>();
   const [isLoading, setIsLoading] = useState(true);
+  const [screenError, setScreenError] = useState<string>();
 
   const fetchProduct = async () => {
     setIsLoading(true);
     const [error, response] = await getProductDetails({ id });
 
     if (error) {
-      console.error(error);
+      setScreenError(error);
+      setIsLoading(false);
+      return;
     }
 
     setProduct(response);
@@ -28,7 +31,9 @@ export function useProductDetails(id: number) {
 
   return {
     isLoading,
+    screenError,
     product,
     goBack,
+    retry: fetchProduct,
   };
 }

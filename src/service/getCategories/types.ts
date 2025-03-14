@@ -9,7 +9,7 @@ export type Category = {
 export type GetCategoriesResponse = Category[];
 
 export enum GetCategoriesError {
-  GenericError = 'generic.error',
+  GenericError = 'genericError',
 }
 
 export type GetCategoriesResult = Result<

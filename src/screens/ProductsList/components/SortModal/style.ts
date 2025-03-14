@@ -21,7 +21,7 @@ export const Pressable = styled.Pressable.attrs({
 `;
 
 export const SortLabel = styled(Text).attrs({
-  fontSize: 'font-10',
+  fontSize: 'font-12',
   color: 'app-darkgray',
   flex: 1,
   textAlign: 'center',

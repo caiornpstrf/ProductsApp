@@ -1,8 +1,13 @@
 import React from 'react';
-import { ListRenderItem, FlatList, Dimensions } from 'react-native';
+import {
+  ListRenderItem,
+  FlatList,
+  Dimensions,
+  ActivityIndicator,
+} from 'react-native';
 import { StaticScreenProps } from '@react-navigation/native';
 
-import { Header, View } from '../../components';
+import { ErrorDisplay, Header, View } from '../../components';
 import { useStringHandler } from '../../locale';
 import { Currency } from '../../handlers';
 
@@ -20,6 +25,7 @@ import {
   InfoContainer,
   Info,
   VerticalSpacer,
+  LoadingContainer,
 } from './style';
 
 type ProductDetailsRoute = StaticScreenProps<{
@@ -30,10 +36,31 @@ export function ProductDetails({ route }: ProductDetailsRoute) {
   const { text, bold } = useStringHandler('productDetails');
 
   const { id } = route.params;
-  const { isLoading, product, goBack } = useProductDetails(id);
+  const { isLoading, screenError, product, goBack, retry } =
+    useProductDetails(id);
 
-  if (isLoading || !product) {
-    return null;
+  if (isLoading) {
+    return (
+      <MainContainer>
+        <LoadingContainer>
+          <ActivityIndicator size="large" color="black" />
+        </LoadingContainer>
+      </MainContainer>
+    );
+  }
+
+  if (screenError) {
+    return (
+      <MainContainer>
+        <Header title={text('title')} onPressBack={goBack} />
+        <ErrorDisplay
+          title={text(`errors.${screenError}.title`)}
+          description={text(`errors.${screenError}.description`)}
+          buttonLabel={text(`errors.${screenError}.buttonLabel`)}
+          onPressButton={retry}
+        />
+      </MainContainer>
+    );
   }
 
   const renderItem: ListRenderItem<string> = ({ item }) => {
@@ -54,7 +81,7 @@ export function ProductDetails({ route }: ProductDetailsRoute) {
             automaticallyAdjustsScrollIndicatorInsets
             keyExtractor={(item: string) => item}
             alwaysBounceHorizontal
-            data={product.images}
+            data={product?.images}
             renderItem={renderItem}
             pagingEnabled
           />
@@ -62,13 +89,17 @@ export function ProductDetails({ route }: ProductDetailsRoute) {
         <Spacer />
         <ContentContainer>
           <InfoContainer>
-            <Info>{bold(text('inStock', { stock: product.stock }))}</Info>
-            <VerticalSpacer />
-            <Info>{bold(text('brand', { brand: product.brand }))}</Info>
+            <Info>{bold(text('inStock', { stock: product!.stock }))}</Info>
+            {product!.brand && (
+              <>
+                <VerticalSpacer />
+                <Info>{bold(text('brand', { brand: product!.brand }))}</Info>
+              </>
+            )}
           </InfoContainer>
-          <Title>{product.title}</Title>
-          <PriceTag>{Currency.format(product.price)}</PriceTag>
-          <Description>{product.description}</Description>
+          <Title>{product!.title}</Title>
+          <PriceTag>{Currency.format(product!.price)}</PriceTag>
+          <Description>{product!.description}</Description>
         </ContentContainer>
       </ScrollContainer>
     </MainContainer>

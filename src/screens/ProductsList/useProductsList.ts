@@ -41,14 +41,19 @@ export function useProductsList() {
   const [isLoading, setIsLoading] = useState(true);
   const [isProductsLoading, setIsProductsLoading] = useState(true);
 
+  const [screenError, setScreenError] = useState<string>();
+  const [productsError, setProductsError] = useState<string>();
+
   const [productsState, setProductsState] =
     useState<ProductsState>(initialProductsState);
 
   const fetchCategories = async () => {
+    setScreenError(undefined);
     const [error, response] = await getCategories();
 
     if (error) {
-      // Handle error
+      setScreenError(error);
+      setIsLoading(false);
       return;
     }
 
@@ -63,6 +68,7 @@ export function useProductsList() {
       return;
     }
     setIsProductsLoading(true);
+    setProductsError(undefined);
 
     const { category, products, nextPage: page, sort, order } = productsState;
     const [error, response] = category.slug
@@ -75,7 +81,8 @@ export function useProductsList() {
       : await ListProducts.all({ page, sort, order });
 
     if (error) {
-      // Handle error
+      setProductsError(error);
+      setIsProductsLoading(false);
       return;
     }
 
@@ -141,11 +148,14 @@ export function useProductsList() {
   return {
     isLoading,
     isProductsLoading,
+    screenError,
+    productsError,
     categories,
     products: productsState.products,
     goToProductDetails,
     onChangeCategory,
-    onListEndReached: () => fetchProducts(),
+    fetchProducts,
     onSort,
+    retry: init,
   };
 }

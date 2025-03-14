@@ -4,7 +4,10 @@ import globalStrings from './strings.json';
 import { getBoldText } from './getBoldText';
 
 type Key = string;
-type Params = Record<string, string | number> | null | undefined;
+type Params =
+  | Record<string, string | number | undefined | null>
+  | null
+  | undefined;
 
 /**
  * Hook that handles string retrieval and parameter replacement;
@@ -24,17 +27,22 @@ export function useStringHandler(featureName?: string) {
   const displayFallback = (key: string) =>
     `{ String not found for key: ${key} }`;
 
-  const replaceParams = (
-    rawString: string,
-    params: Record<string, string | number>,
-  ) => {
+  const replaceParams = (rawString: string, params: Params) => {
+    if (!params) {
+      return rawString;
+    }
+
     let stringWithParams = rawString;
-    Object.keys(params).forEach(paramKey => {
-      stringWithParams = stringWithParams.replace(
-        `{{ ${paramKey} }}`,
-        params[paramKey].toString(),
-      );
-    });
+
+    for (const [key, value] of Object.entries(params)) {
+      if (value) {
+        stringWithParams = stringWithParams.replace(
+          `{{ ${key} }}`,
+          value.toString(),
+        );
+      }
+    }
+
     return stringWithParams;
   };
 
@@ -44,14 +52,10 @@ export function useStringHandler(featureName?: string) {
     fallbackKey?: Key,
   ): string => {
     const rawString = get(featureSpecificStrings, key);
-    const stringWithParams = params
-      ? replaceParams(rawString, params)
-      : rawString;
-    return (
-      stringWithParams ||
-      (fallbackKey && get(featureSpecificStrings, fallbackKey)) ||
-      displayFallback(key)
-    );
+    const stringWithParams = replaceParams(rawString, params);
+    const fallback = fallbackKey && get(featureSpecificStrings, fallbackKey);
+
+    return stringWithParams || fallback || displayFallback(key);
   };
 
   return {

@@ -8,11 +8,36 @@
       "rating": "Rating",
       "asc": "Ascending",
       "desc": "Descending"
+    },
+    "errors": {
+      "genericError": {
+        "title": "An error has occurred",
+        "description": "An uknown error has occurred while fetching the categories list. Please try again.",
+        "buttonLabel": "Retry"
+      },
+      "products": {
+        "genericError": {
+          "title": "An error has occurred",
+          "description": "An uknown error has occurred while fetching the products list. Please try again.",
+          "buttonLabel": "Retry"
+        },
+        "noProducts": {
+          "title": "Nothing here!",
+          "description": "There were products found."
+        }
+      }
     }
   },
   "productDetails": {
     "title": "Details",
     "inStock": "In stock: ##{{ stock }}##",
-    "brand": "Brand:\n##{{ brand }}##"
+    "brand": "Brand:\n##{{ brand }}##",
+    "errors": {
+      "genericError": {
+        "title": "An error has occurred",
+        "description": "An uknown error has occurred while fetching the product. Please try again.",
+        "buttonLabel": "Retry"
+      }
+    }
   }
 }

@@ -16,8 +16,8 @@ function App() {
   return (
     <>
       <StatusBar
-        barStyle={'light-content'}
-        backgroundColor={theme.colors.primary}
+        barStyle={'dark-content'}
+        backgroundColor={theme.colors['app-white']}
       />
       <ThemeProvider theme={theme}>
         <SafeAreaProvider initialMetrics={initialMetrics}>

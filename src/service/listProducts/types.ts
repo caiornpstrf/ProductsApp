@@ -37,7 +37,7 @@ export type ListProductsResponse = {
 };
 
 export enum ListProductsError {
-  GenericError = 'generic.error',
+  GenericError = 'genericError',
 }
 
 export type ListProductsResult = Result<

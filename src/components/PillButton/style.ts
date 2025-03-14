@@ -13,8 +13,8 @@ const active = variant({
   prop: 'active',
   variants: {
     true: {
-      backgroundColor: 'app-secondary',
-      borderColor: 'app-primary',
+      backgroundColor: 'app-accent',
+      borderColor: 'app-secondary',
       borderWidth: 'border-2',
     },
   },

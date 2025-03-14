@@ -6,7 +6,7 @@ import {
   MainContainer,
   Spacer,
 } from './style';
-import { Header, Text, View } from '../../components';
+import { ErrorDisplay, Header, View } from '../../components';
 import { useStringHandler } from '../../locale';
 import { Category, Product } from '../../service';
 import { ActivityIndicator, FlatList, ListRenderItem } from 'react-native';
@@ -20,12 +20,15 @@ export function ProductsList() {
   const {
     isLoading,
     isProductsLoading,
+    screenError,
+    productsError,
     categories,
     products,
     goToProductDetails,
     onChangeCategory,
-    onListEndReached,
+    fetchProducts,
     onSort,
+    retry,
   } = useProductsList();
 
   const defaultCategory: Category = {
@@ -44,6 +47,19 @@ export function ProductsList() {
     );
   }
 
+  if (screenError) {
+    return (
+      <MainContainer>
+        <ErrorDisplay
+          title={text(`errors.${screenError}.title`)}
+          description={text(`errors.${screenError}.description`)}
+          buttonLabel={text(`errors.${screenError}.buttonLabel`)}
+          onPressButton={retry}
+        />
+      </MainContainer>
+    );
+  }
+
   const renderItem: ListRenderItem<Product> = ({ item }) => {
     return (
       <ProductListItem
@@ -53,6 +69,29 @@ export function ProductsList() {
         onPress={() => goToProductDetails(item)}
       />
     );
+  };
+
+  const selectListEmptyComponent = () => {
+    switch (true) {
+      case !!productsError:
+        return (
+          <ErrorDisplay
+            title={text(`errors.products.${productsError}.title`)}
+            description={text(`errors.products.${productsError}.description`)}
+            buttonLabel={text(`errors.products.${productsError}.buttonLabel`)}
+            onPressButton={fetchProducts}
+          />
+        );
+      case isProductsLoading:
+        return null;
+      default:
+        return (
+          <ErrorDisplay
+            title={text('errors.products.noProducts.title')}
+            description={text('errors.products.noProducts.description')}
+          />
+        );
+    }
   };
 
   return (
@@ -85,13 +124,11 @@ export function ProductsList() {
               />
             </ListEndContainer>
           }
-          onEndReached={onListEndReached}
+          onEndReached={fetchProducts}
           onEndReachedThreshold={0.0001}
           // eslint-disable-next-line react-native/no-inline-styles
           contentContainerStyle={{ flexGrow: 1 }}
-          ListEmptyComponent={
-            !isProductsLoading ? <Text>{text('noProducts')}</Text> : null
-          }
+          ListEmptyComponent={selectListEmptyComponent()}
         />
       </ContentContainer>
       <SortModal

@@ -37,6 +37,12 @@ export const VerticalSpacer = styled(View).attrs({
   bg: 'app-lightgray',
 })``;
 
+export const LoadingContainer = styled(View).attrs({
+  flex: 1,
+  justifyContent: 'center',
+  alignItems: 'center',
+})``;
+
 export const Image = styled(BaseImage).attrs({
   resizeMode: 'contain',
 })`
@@ -80,7 +86,7 @@ export const Description = styled(Text).attrs({
 `;
 
 export const Info = styled(Text).attrs({
-  fontSize: 'font-10',
+  fontSize: 'font-12',
   color: 'app-darkgray',
   flex: 1,
   textAlign: 'center',
