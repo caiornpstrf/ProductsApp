@@ -1,9 +1,7 @@
-import { Theme } from 'styled-system';
-
 /**
  * Credits to @colours.cafe on Threads for the color palette
  */
-export const theme: Theme = {
+export const theme = {
   colors: {
     'app-primary': '#B880FF',
     'app-secondary': '#E7D3FF',

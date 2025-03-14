@@ -1,6 +1,6 @@
 import { FlatList } from 'react-native';
 import styled from 'styled-components/native';
-import { SafeAreaView, Text, View } from '../../components';
+import { SafeAreaView, Text, View, Image as BaseImage } from '../../components';
 import { flex, space } from 'styled-system';
 
 export const MainContainer = styled(SafeAreaView).attrs({
@@ -37,7 +37,7 @@ export const VerticalSpacer = styled(View).attrs({
   bg: 'app-lightgray',
 })``;
 
-export const Image = styled.Image.attrs({
+export const Image = styled(BaseImage).attrs({
   resizeMode: 'contain',
 })`
   height: 200px;

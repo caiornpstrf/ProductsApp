@@ -1,8 +1,7 @@
-import { Image } from 'react-native';
 import styled from 'styled-components/native';
 import { flexbox, space } from 'styled-system';
 
-import { Icon, Text, View } from '../../../../components';
+import { Icon, Image, Text, View } from '../../../../components';
 
 export const MainContainer = styled(View).attrs({
   flexDirection: 'row',
@@ -31,7 +30,7 @@ export const Title = styled(Text).attrs({
 export const PriceTag = styled(Text).attrs({
   fontSize: 'font-14',
   color: 'app-primary',
-  mt: 'space-4'
+  mt: 'space-4',
 })`
   ${space}
 `;

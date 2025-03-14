@@ -7,3 +7,4 @@ export * from './View';
 export * from './PillButton';
 export * from './Modal';
 export * from './RadioButton';
+export * from './Image';
