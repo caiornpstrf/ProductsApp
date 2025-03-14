@@ -7,9 +7,14 @@ import { Spacer } from './style';
 export type CategoryCarouselProps = {
   data: Category[];
   onPressItem(category: Category): void;
+  testID?: string;
 };
 
-export function CategoryCarousel({ data, onPressItem }: CategoryCarouselProps) {
+export function CategoryCarousel({
+  data,
+  onPressItem,
+  testID,
+}: CategoryCarouselProps) {
   const [selectedCategory, setSelectedCategory] = useState<Category>(data[0]);
 
   const onPress = (category: Category) => {
@@ -20,6 +25,7 @@ export function CategoryCarousel({ data, onPressItem }: CategoryCarouselProps) {
   const renderItem: ListRenderItem<Category> = ({ item }) => {
     return (
       <PillButton
+        testID={`category-carousel-${item.slug}`}
         label={item.name}
         active={item.slug === selectedCategory.slug}
         onPress={() => onPress(item)}
@@ -28,7 +34,7 @@ export function CategoryCarousel({ data, onPressItem }: CategoryCarouselProps) {
   };
 
   return (
-    <View>
+    <View testID={testID}>
       <FlatList<Category>
         horizontal
         showsHorizontalScrollIndicator={false}

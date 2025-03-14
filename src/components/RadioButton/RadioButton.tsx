@@ -12,14 +12,20 @@ export type RadioButtonProps = {
   active?: boolean;
   label: string | React.ReactNode;
   onPress(): void;
+  testID?: string;
 };
 
-export function RadioButton({ active, label, onPress }: RadioButtonProps) {
+export function RadioButton({
+  active,
+  label,
+  onPress,
+  testID,
+}: RadioButtonProps) {
   return (
-    <Pressable onPress={onPress}>
+    <Pressable testID={testID} onPress={onPress}>
       <MainContainer>
-        <RadioButtonContainer active={active}>
-          <RadioButtonInner active={active}/>
+        <RadioButtonContainer testID={`${testID}-circle`} active={active}>
+          <RadioButtonInner testID={`${testID}-circle-inner`} active={active} />
         </RadioButtonContainer>
         <Label>{label}</Label>
       </MainContainer>

@@ -1,7 +1,8 @@
 import styled from 'styled-components/native';
-import { Text, View } from '..';
 import { space, variant } from 'styled-system';
 
+import { View } from '../View';
+import { Text } from '../Text';
 
 export const Pressable = styled.TouchableOpacity``;
 

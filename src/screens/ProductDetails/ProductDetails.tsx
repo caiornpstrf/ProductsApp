@@ -41,7 +41,7 @@ export function ProductDetails({ route }: ProductDetailsRoute) {
 
   if (isLoading) {
     return (
-      <MainContainer>
+      <MainContainer testID="product-details-loading">
         <LoadingContainer>
           <ActivityIndicator size="large" color="black" />
         </LoadingContainer>
@@ -51,7 +51,7 @@ export function ProductDetails({ route }: ProductDetailsRoute) {
 
   if (screenError) {
     return (
-      <MainContainer>
+      <MainContainer testID="product-details-error">
         <Header title={text('title')} onPressBack={goBack} />
         <ErrorDisplay
           title={text(`errors.${screenError}.title`)}
@@ -72,7 +72,7 @@ export function ProductDetails({ route }: ProductDetailsRoute) {
   };
 
   return (
-    <MainContainer>
+    <MainContainer testID="product-details">
       <Header title={text('title')} onPressBack={goBack} />
       <ScrollContainer>
         <View>

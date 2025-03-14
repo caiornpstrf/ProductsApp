@@ -49,13 +49,11 @@ export function useStringHandler(featureName?: string) {
   const getFromJson = (
     key: Key,
     params?: Params,
-    fallbackKey?: Key,
   ): string => {
     const rawString = get(featureSpecificStrings, key);
     const stringWithParams = replaceParams(rawString, params);
-    const fallback = fallbackKey && get(featureSpecificStrings, fallbackKey);
 
-    return stringWithParams || fallback || displayFallback(key);
+    return stringWithParams || displayFallback(key);
   };
 
   return {

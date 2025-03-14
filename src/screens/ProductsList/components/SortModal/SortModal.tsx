@@ -41,13 +41,17 @@ export function SortModal({ onPressSort, ...rest }: SortModalProps) {
     <Modal {...rest}>
       <SortContainer>
         <Pressable onPress={() => handleOrderSelection(SortOrder.Asc)}>
-          <SortLabel selected={selectedOrder === SortOrder.Asc}>
+          <SortLabel
+            testID="sort-modal-button-asc"
+            selected={selectedOrder === SortOrder.Asc}>
             {text('sort.asc')}
           </SortLabel>
         </Pressable>
         <VerticalSpacer />
         <Pressable onPress={() => handleOrderSelection(SortOrder.Desc)}>
-          <SortLabel selected={selectedOrder === SortOrder.Desc}>
+          <SortLabel
+            testID="sort-modal-button-desc"
+            selected={selectedOrder === SortOrder.Desc}>
             {text('sort.desc')}
           </SortLabel>
         </Pressable>
@@ -58,9 +62,11 @@ export function SortModal({ onPressSort, ...rest }: SortModalProps) {
           label={text(`sort.${type}`)}
           active={selectedType === type}
           onPress={() => handleTypeSelection(type)}
+          testID={`sort-modal-radio-button-${type}`}
         />
       ))}
       <Button
+        testID="sort-modal-button"
         label={text('sortLabel')}
         onPress={() =>
           onPressSort({ type: selectedType, order: selectedOrder })

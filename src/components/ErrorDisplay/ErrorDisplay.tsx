@@ -23,14 +23,18 @@ export function ErrorDisplay({
   onPressButton,
 }: ErrorDisplayProps) {
   return (
-    <MainContainer>
+    <MainContainer testID="error-display">
       <TextContainer>
         <ErrorIcon />
         <Title>{title}</Title>
         <Description>{description}</Description>
       </TextContainer>
       {onPressButton && buttonLabel && (
-        <Button label={buttonLabel} onPress={onPressButton} />
+        <Button
+          testID="error-display-button"
+          label={buttonLabel}
+          onPress={onPressButton}
+        />
       )}
     </MainContainer>
   );

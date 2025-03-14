@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
-import { SafeAreaView, View } from '..';
 import { flex } from 'styled-system';
+
+import { View } from '../View';
+import { SafeAreaView } from '../SafeAreaView';
 
 export const BaseModal = styled.Modal.attrs({
   transparent: true,

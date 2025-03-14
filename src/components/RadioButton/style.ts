@@ -1,6 +1,8 @@
 import styled from 'styled-components/native';
-import { Text, View } from '..';
 import { space, variant } from 'styled-system';
+
+import { View } from '../View';
+import { Text } from '../Text';
 
 export const MainContainer = styled(View).attrs({
   flexDirection: 'row',
@@ -30,7 +32,7 @@ export const RadioButtonContainer = styled(View).attrs({
 export const RadioButtonInner = styled(View).attrs({
   width: '10px',
   height: '10px',
-  borderRadius: 'radius-16',
+  borderRadius: 'radius-32',
   bg: 'transparent',
 })`
   ${variant({

@@ -1,5 +1,5 @@
 import { Request } from '../Request';
-import { config } from './constants';
+import { config } from './config';
 import {
   ListProductsError,
   ListProductsResponse,

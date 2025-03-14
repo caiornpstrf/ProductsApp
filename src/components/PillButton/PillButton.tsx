@@ -20,8 +20,13 @@ export function PillButton({
 }: PillButtonProps) {
   return (
     <Pressable disabled={disabled} testID={testID} onPress={onPress}>
-      <ButtonContainer active={active} disabled={disabled}>
-        <ButtonText active={active}>{label}</ButtonText>
+      <ButtonContainer
+        testID="pill-button-container"
+        active={active}
+        disabled={disabled}>
+        <ButtonText testID="pill-button-text" active={active}>
+          {label}
+        </ButtonText>
       </ButtonContainer>
     </Pressable>
   );

@@ -24,18 +24,18 @@ export function Header({ title, onPressBack, rightIcon }: HeaderProps) {
     <MainContainer>
       <Side justifyContent="flex-start">
         {onPressBack && (
-          <Pressable onPress={onPressBack}>
+          <Pressable testID="header-left-icon" onPress={onPressBack}>
             <BackIcon />
           </Pressable>
         )}
       </Side>
       <Center>
-        <Title>{title}</Title>
+        <Title testID="header-center-text">{title}</Title>
       </Center>
       <Side justifyContent="flex-end">
         {rightIcon && (
           <Pressable onPress={rightIcon.onPress}>
-            <RightIcon name={rightIcon.name} />
+            <RightIcon testID="header-left-right" name={rightIcon.name} />
           </Pressable>
         )}
       </Side>

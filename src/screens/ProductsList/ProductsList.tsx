@@ -39,7 +39,7 @@ export function ProductsList() {
 
   if (isLoading) {
     return (
-      <MainContainer>
+      <MainContainer testID="products-list-loading">
         <LoadingContainer>
           <ActivityIndicator size="large" color="black" />
         </LoadingContainer>
@@ -49,7 +49,7 @@ export function ProductsList() {
 
   if (screenError) {
     return (
-      <MainContainer>
+      <MainContainer testID="products-list-error">
         <ErrorDisplay
           title={text(`errors.${screenError}.title`)}
           description={text(`errors.${screenError}.description`)}
@@ -63,6 +63,7 @@ export function ProductsList() {
   const renderItem: ListRenderItem<Product> = ({ item }) => {
     return (
       <ProductListItem
+        testID={`product-list-item-${item.id}`}
         title={item.title}
         price={item.price}
         uri={item.images[0]}
@@ -83,7 +84,7 @@ export function ProductsList() {
           />
         );
       case isProductsLoading:
-        return null;
+        return <View testID="products-list-nothing" />;
       default:
         return (
           <ErrorDisplay
@@ -95,7 +96,7 @@ export function ProductsList() {
   };
 
   return (
-    <MainContainer>
+    <MainContainer testID="products-list">
       <Header
         title={text('title')}
         rightIcon={{
@@ -132,6 +133,7 @@ export function ProductsList() {
         />
       </ContentContainer>
       <SortModal
+        testID="products-list-sort-modal"
         isVisible={sortModalVisible}
         onClose={() => setSortModalVisible(false)}
         onPressSort={item => {

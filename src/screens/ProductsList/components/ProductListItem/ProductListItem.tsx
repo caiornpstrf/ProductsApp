@@ -30,7 +30,7 @@ export function ProductListItem({
     <Pressable testID={testID} onPress={onPress}>
       <MainContainer>
         <View flexDirection="row" alignItems="center">
-          <Thumbnail source={{ uri }} />
+          <Thumbnail testID={`${testID}-thumbnail`} source={{ uri }} />
           <TextContainer>
             <Title>{title}</Title>
             <PriceTag>{Currency.format(price)}</PriceTag>

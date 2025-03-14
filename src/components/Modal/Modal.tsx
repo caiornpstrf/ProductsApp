@@ -5,13 +5,14 @@ export type ModalProps = {
   isVisible: boolean;
   children: React.ReactNode;
   onClose: () => void;
+  testID?: string;
 };
 
-export function Modal({ isVisible, onClose, children }: ModalProps) {
+export function Modal({ isVisible, onClose, children, testID }: ModalProps) {
   return (
-    <BaseModal visible={isVisible} onRequestClose={onClose}>
+    <BaseModal testID={testID} visible={isVisible} onRequestClose={onClose}>
       <ModalContainer>
-        <Backdrop onPress={onClose} />
+        <Backdrop testID="modal-backdrop" onPress={onClose} />
         <ContentContainer>{children}</ContentContainer>
       </ModalContainer>
     </BaseModal>

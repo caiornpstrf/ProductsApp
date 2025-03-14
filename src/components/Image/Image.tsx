@@ -17,7 +17,7 @@ export function Image({ onLoad, ...rest }: ImageProps) {
 
   return (
     <ImageBackground {...rest} onLoad={handleLoad}>
-      {true && <Spinner animating={!loaded} />}
+      {true && <Spinner testID="image-spinner" animating={!loaded} />}
     </ImageBackground>
   );
 }

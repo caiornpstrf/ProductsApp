@@ -44,7 +44,7 @@ export class Request<RequestResponse> {
       }
 
       if (response.status !== 200) {
-        throw JSON.parse(await response.text());
+        throw new Error('Invalid status');
       }
 
       return await JSON.parse(await response.text());
