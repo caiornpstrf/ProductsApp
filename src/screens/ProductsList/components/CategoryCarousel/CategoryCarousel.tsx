@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 import { PillButton, View } from '../../../../components';
+import { Category } from '../../../../service';
 import { Spacer } from './style';
 
-type Category = {
-  slug: string;
-  name: string;
-  url: string;
-};
 export type CategoryCarouselProps = {
   data: Category[];
   onPressItem(category: Category): void;

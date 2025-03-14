@@ -14,7 +14,7 @@ import { Currency } from '../../../../handlers';
 export type ProductListItemProps = {
   title: string;
   price: number;
-  // thumbnail: string;
+  uri: string;
   onPress(): void;
   testID?: string;
 };
@@ -22,6 +22,7 @@ export type ProductListItemProps = {
 export function ProductListItem({
   title,
   price,
+  uri,
   onPress,
   testID,
 }: ProductListItemProps) {
@@ -29,7 +30,7 @@ export function ProductListItem({
     <Pressable testID={testID} onPress={onPress}>
       <MainContainer>
         <View flexDirection="row" alignItems="center">
-          <Thumbnail />
+          <Thumbnail source={{ uri }} />
           <TextContainer>
             <Title>{title}</Title>
             <PriceTag>{Currency.format(price)}</PriceTag>

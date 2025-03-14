@@ -1,25 +1,53 @@
 import React from 'react';
-import { ContentContainer, MainContainer, Spacer } from './style';
-import { Header, View } from '../../components';
-import { useStringHandler } from '../../locale';
-import { FlatList, ListRenderItem } from 'react-native';
-import { useProductsList } from './useProductsList';
 import {
-  CategoryCarousel,
-  ProductListItem,
-  ProductListItemProps,
-} from './components';
+  ContentContainer,
+  ListEndContainer,
+  LoadingContainer,
+  MainContainer,
+  Spacer,
+} from './style';
+import { Header, Text, View } from '../../components';
+import { useStringHandler } from '../../locale';
+import { Category, Product } from '../../service';
+import { ActivityIndicator, FlatList, ListRenderItem } from 'react-native';
+import { useProductsList } from './useProductsList';
+import { CategoryCarousel, ProductListItem } from './components';
 
 export function ProductsList() {
   const { text } = useStringHandler('productsList');
 
-  const { categories, goToProductDetails } = useProductsList();
+  const {
+    isLoading,
+    isProductsLoading,
+    categories,
+    products,
+    goToProductDetails,
+    onChangeCategory,
+    onListEndReached,
+  } = useProductsList();
 
-  const renderItem: ListRenderItem<ProductListItemProps> = ({ item }) => {
+  const defaultCategory: Category = {
+    name: 'All',
+    slug: '',
+    url: '',
+  };
+
+  if (isLoading) {
+    return (
+      <MainContainer>
+        <LoadingContainer>
+          <ActivityIndicator size="large" color="black" />
+        </LoadingContainer>
+      </MainContainer>
+    );
+  }
+
+  const renderItem: ListRenderItem<Product> = ({ item }) => {
     return (
       <ProductListItem
         title={item.title}
         price={item.price}
+        uri={item.images[0]}
         onPress={() => goToProductDetails(item)}
       />
     );
@@ -30,16 +58,32 @@ export function ProductsList() {
       <Header title={text('title')} />
       <ContentContainer>
         <CategoryCarousel
-          data={categories}
-          onPressItem={category => console.log(category)}
+          data={[defaultCategory, ...categories]}
+          onPressItem={category => onChangeCategory(category)}
         />
         <View mt="space-16" />
-        <FlatList<any>
-          data={new Array(10).fill({ title: 'Product', price: 100 })}
-          keyExtractor={(_, index) => index.toString()}
+        <FlatList<Product>
+          data={products}
+          keyExtractor={item => item.id.toString()}
           renderItem={renderItem}
           ItemSeparatorComponent={Spacer}
           showsVerticalScrollIndicator={false}
+          ListFooterComponent={
+            <ListEndContainer>
+              <ActivityIndicator
+                size="small"
+                color="black"
+                animating={isProductsLoading}
+              />
+            </ListEndContainer>
+          }
+          onEndReached={onListEndReached}
+          onEndReachedThreshold={0.0001}
+          // eslint-disable-next-line react-native/no-inline-styles
+          contentContainerStyle={{ flexGrow: 1 }}
+          ListEmptyComponent={
+            !isProductsLoading ? <Text>{text('noProducts')}</Text> : null
+          }
         />
       </ContentContainer>
     </MainContainer>

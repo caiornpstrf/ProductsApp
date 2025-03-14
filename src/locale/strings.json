@@ -1,5 +1,8 @@
 {
   "productsList": {
     "title": "Products"
+  },
+  "productDetails": {
+    "title": "Details"
   }
 }
