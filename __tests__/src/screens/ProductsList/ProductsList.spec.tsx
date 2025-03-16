@@ -85,7 +85,7 @@ describe('ProductsList tests', () => {
   it('should interact with modal', () => {
     const { getByTestId } = renderComponent();
 
-    fireEvent.press(getByTestId('header-left-right'));
+    fireEvent.press(getByTestId('header-right-icon'));
     expect(getByTestId('products-list-sort-modal').props.isVisible).toBe(true);
 
     act(() => {

@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   ListRenderItem,
   FlatList,
   Dimensions,
   ActivityIndicator,
+  Alert,
 } from 'react-native';
 import { StaticScreenProps } from '@react-navigation/native';
 
-import { ErrorDisplay, Header, View } from '../../components';
+import { DatePicker, ErrorDisplay, Header, View } from '../../components';
 import { useStringHandler } from '../../locale';
 import { Currency } from '../../handlers';
 
@@ -27,6 +28,7 @@ import {
   VerticalSpacer,
   LoadingContainer,
 } from './style';
+import { GetProductDetailsError } from '../../service';
 
 type ProductDetailsRoute = StaticScreenProps<{
   id: number;
@@ -34,10 +36,18 @@ type ProductDetailsRoute = StaticScreenProps<{
 
 export function ProductDetails({ route }: ProductDetailsRoute) {
   const { text, bold } = useStringHandler('productDetails');
+  const [isDatePickerVisible, setDatePickerVisible] = useState(false);
 
   const { id } = route.params;
-  const { isLoading, screenError, product, goBack, retry } =
-    useProductDetails(id);
+  const {
+    isLoading,
+    screenError,
+    product,
+    goBack,
+    retry,
+    isCalendarAvailable,
+    saveToCalendar,
+  } = useProductDetails(id);
 
   if (isLoading) {
     return (
@@ -57,7 +67,11 @@ export function ProductDetails({ route }: ProductDetailsRoute) {
           title={text(`errors.${screenError}.title`)}
           description={text(`errors.${screenError}.description`)}
           buttonLabel={text(`errors.${screenError}.buttonLabel`)}
-          onPressButton={retry}
+          onPressButton={
+            screenError === GetProductDetailsError.GenericError
+              ? retry
+              : undefined
+          }
         />
       </MainContainer>
     );
@@ -71,9 +85,26 @@ export function ProductDetails({ route }: ProductDetailsRoute) {
     );
   };
 
+  const handleSaveToCalendar = (date: Date) => {
+    setDatePickerVisible(false);
+    saveToCalendar(date, product!.title);
+    Alert.alert(text('calendar.success'));
+  };
+
   return (
     <MainContainer testID="product-details">
-      <Header title={text('title')} onPressBack={goBack} />
+      <Header
+        title={text('title')}
+        onPressBack={goBack}
+        rightIcon={
+          isCalendarAvailable
+            ? {
+                name: 'calendar',
+                onPress: () => setDatePickerVisible(true),
+              }
+            : undefined
+        }
+      />
       <ScrollContainer>
         <View>
           <FlatList<string>
@@ -102,6 +133,16 @@ export function ProductDetails({ route }: ProductDetailsRoute) {
           <Description>{product!.description}</Description>
         </ContentContainer>
       </ScrollContainer>
+      <DatePicker
+        testID="product-details-date-picker"
+        isVisible={isDatePickerVisible}
+        close={() => setDatePickerVisible(false)}
+        onConfirm={handleSaveToCalendar}
+        minimumDate={new Date()}
+        confirmText={text('calendar.saveProduct')}
+        title={text('calendar.title')}
+        mode="datetime"
+      />
     </MainContainer>
   );
 }

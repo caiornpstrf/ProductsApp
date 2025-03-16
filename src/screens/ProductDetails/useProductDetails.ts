@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
+import { useNavigation } from '@react-navigation/native';
 
 import { GetProductDetailsResponse, getProductDetails } from '../../service';
-import { useNavigation } from '@react-navigation/native';
+import { Calendar } from '../../specs';
+
+enum ScreenErrors {
+  CalendarNotAvailable = 'failedToLoadCalendar',
+}
 
 export function useProductDetails(id: number) {
   const { goBack } = useNavigation();
@@ -24,6 +29,14 @@ export function useProductDetails(id: number) {
     setIsLoading(false);
   };
 
+  const saveToCalendar = (date: Date, name: string) => {
+    if (Calendar) {
+      Calendar.setReminder(date.getTime(), name);
+      return;
+    }
+    setScreenError(ScreenErrors.CalendarNotAvailable);
+  };
+
   useEffect(() => {
     fetchProduct();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -35,5 +48,7 @@ export function useProductDetails(id: number) {
     product,
     goBack,
     retry: fetchProduct,
+    isCalendarAvailable: !!Calendar,
+    saveToCalendar,
   };
 }

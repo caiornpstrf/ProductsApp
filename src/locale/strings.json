@@ -37,7 +37,16 @@
         "title": "An error has occurred",
         "description": "An uknown error has occurred while fetching the product. Please try again.",
         "buttonLabel": "Retry"
+      },
+      "failedToLoadCalendar": {
+        "title": "An error has occurred",
+        "description": "An uknown error has occurred while loading the calendar."
       }
+    },
+    "calendar": {
+      "title": "Selecte a date to be reminded",
+      "saveProduct": "Remind me",
+      "success": "Product saved to calendar successfully!"
     }
   }
 }

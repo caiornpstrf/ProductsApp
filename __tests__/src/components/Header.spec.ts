@@ -39,7 +39,7 @@ describe('Header tests', () => {
     } = renderComponent({
       rightIcon: { name: 'test-icon', onPress: onPressRightIconMock },
     });
-    fireEvent.press(getByTestId('header-left-right'));
+    fireEvent.press(getByTestId('header-right-icon'));
     expect(onPressRightIconMock).toHaveBeenCalled();
   });
 
@@ -54,6 +54,6 @@ describe('Header tests', () => {
     const {
       component: { queryByTestId },
     } = renderComponent({ rightIcon: undefined });
-    expect(queryByTestId('header-left-right')).toBeNull();
+    expect(queryByTestId('header-right-icon')).toBeNull();
   });
 });

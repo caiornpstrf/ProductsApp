@@ -12,6 +12,9 @@
 		761780ED2CA45674006654EE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 761780EC2CA45674006654EE /* AppDelegate.swift */; };
 		7B8B5432524EEBD3C1B41B61 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB81A68108700A75B9A /* PrivacyInfo.xcprivacy */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		A5CC513B2D8644050087B378 /* RCTNativeCalendar.mm in Sources */ = {isa = PBXBuildFile; fileRef = A5CC513A2D8644050087B378 /* RCTNativeCalendar.mm */; };
+		A5CC513D2D8646A20087B378 /* EventKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5CC513C2D8646A10087B378 /* EventKit.framework */; };
+		A5CC513F2D8646A60087B378 /* EventKitUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A5CC513E2D8646A60087B378 /* EventKitUI.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +27,11 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-ProductsApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ProductsApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ProductsApp/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = ProductsApp/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A5CC51382D8644050087B378 /* ProductsApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ProductsApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		A5CC51392D8644050087B378 /* RCTNativeCalendar.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RCTNativeCalendar.h; sourceTree = "<group>"; };
+		A5CC513A2D8644050087B378 /* RCTNativeCalendar.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = RCTNativeCalendar.mm; sourceTree = "<group>"; };
+		A5CC513C2D8646A10087B378 /* EventKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKit.framework; path = System/Library/Frameworks/EventKit.framework; sourceTree = SDKROOT; };
+		A5CC513E2D8646A60087B378 /* EventKitUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = EventKitUI.framework; path = System/Library/Frameworks/EventKitUI.framework; sourceTree = SDKROOT; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -32,6 +40,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5CC513F2D8646A60087B378 /* EventKitUI.framework in Frameworks */,
+				A5CC513D2D8646A20087B378 /* EventKit.framework in Frameworks */,
 				0C80B921A6F3F58F76C31292 /* libPods-ProductsApp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -54,6 +64,8 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A5CC513E2D8646A60087B378 /* EventKitUI.framework */,
+				A5CC513C2D8646A10087B378 /* EventKit.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				5DCACB8F33CDC322A6C60F78 /* libPods-ProductsApp.a */,
 			);
@@ -70,6 +82,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				A5CC51372D8643EF0087B378 /* TurboModules */,
 				13B07FAE1A68108700A75B9A /* ProductsApp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
@@ -87,6 +100,16 @@
 				13B07F961A680F5B00A75B9A /* ProductsApp.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		A5CC51372D8643EF0087B378 /* TurboModules */ = {
+			isa = PBXGroup;
+			children = (
+				A5CC51392D8644050087B378 /* RCTNativeCalendar.h */,
+				A5CC513A2D8644050087B378 /* RCTNativeCalendar.mm */,
+				A5CC51382D8644050087B378 /* ProductsApp-Bridging-Header.h */,
+			);
+			path = TurboModules;
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -131,7 +154,7 @@
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1620;
 					};
 				};
 			};
@@ -246,6 +269,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A5CC513B2D8644050087B378 /* RCTNativeCalendar.mm in Sources */,
 				761780ED2CA45674006654EE /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -275,6 +299,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ProductsApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "TurboModules/ProductsApp-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -302,6 +327,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = ProductsApp;
+				SWIFT_OBJC_BRIDGING_HEADER = "TurboModules/ProductsApp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

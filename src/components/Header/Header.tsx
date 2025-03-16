@@ -35,7 +35,7 @@ export function Header({ title, onPressBack, rightIcon }: HeaderProps) {
       <Side justifyContent="flex-end">
         {rightIcon && (
           <Pressable onPress={rightIcon.onPress}>
-            <RightIcon testID="header-left-right" name={rightIcon.name} />
+            <RightIcon testID="header-right-icon" name={rightIcon.name} />
           </Pressable>
         )}
       </Side>

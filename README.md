@@ -12,7 +12,8 @@ In order to run on iOS, make sure pods are installed. Just run the following com
 
 ```
 cd ios
-pod install
+bundle install
+bundle exec pod install
 cd ..
 ```
 
@@ -35,4 +36,6 @@ yarn ios
 
 - `lodash` was added solely to handle strings. Didn't want to setup any localization library to save time. Instead I implemented my own solution, which is `useStringHandler`;
 
-- `styled-components` and `styled-system` were chosen due to familiarity, velocity and because I wanted to maintain a pattern of styles while developing.
+- `styled-components` and `styled-system` were chosen due to familiarity, velocity and because I wanted to maintain a pattern of styles while developing;
+
+- TurboModules was used to handle native communication.

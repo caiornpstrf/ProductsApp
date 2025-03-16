@@ -9,3 +9,4 @@ export * from './Modal';
 export * from './RadioButton';
 export * from './Image';
 export * from './ErrorDisplay';
+export * from './DatePicker';

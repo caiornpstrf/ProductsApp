@@ -1,4 +1,5 @@
-import { waitFor } from '@testing-library/react-native';
+import { act, waitFor } from '@testing-library/react-native';
+
 import { useProductDetails } from '../../../../src/screens/ProductDetails/useProductDetails';
 import {
   GetProductDetailsError,
@@ -22,6 +23,10 @@ describe('useProductDetails tests', () => {
   beforeEach(() => {
     jest.clearAllMocks();
     mockGetProductDetails.mockResolvedValue(mockResult);
+  });
+
+  afterEach(() => {
+    jest.resetModules();
   });
 
   it('Should render hook successfully', async () => {
@@ -49,6 +54,19 @@ describe('useProductDetails tests', () => {
       expect(result.current.screenError).toBe(
         GetProductDetailsError.GenericError,
       );
+    });
+  });
+
+  it('Should handle save to calendar error', async () => {
+    const { result } = renderHook();
+
+    act(() => {
+      result.current.saveToCalendar(new Date(), 'name');
+    });
+
+    await waitFor(() => {
+      expect(result.current.isCalendarAvailable).toBe(false);
+      expect(result.current.screenError).toBe('failedToLoadCalendar');
     });
   });
 });
